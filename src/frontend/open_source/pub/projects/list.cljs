@@ -1,4 +1,4 @@
-(ns open-source.pub.os-projects.list
+(ns open-source.pub.projects.list
   (:require [re-frame.core :refer [dispatch subscribe]]
             [clojure.string :as str]
             [open-source.utils :as u]
@@ -11,13 +11,13 @@
   [:span.tag {:data-prevent-nav true
               :on-click #(do (.stopPropagation %)
                              (.preventDefault %)
-                             (dispatch [:edit-field [:forms :os-projects :search :data :query] tag]))} tag])
+                             (dispatch [:edit-field [:forms :projects :search :data :query] tag]))} tag])
 
 (defn view
   []
-  (let [listings (subscribe [:filtered-os-projects])
-        query (subscribe [:key :forms :os-projects :search :data :query])
-        tags  (subscribe [:os-tags])]
+  (let [listings (subscribe [:filtered-projects])
+        query (subscribe [:key :forms :projects :search :data :query])
+        tags  (subscribe [:project-tags])]
     (fn []
       (let [listings @listings
             tags @tags]
@@ -32,7 +32,7 @@
            [:div.search
             [:input {:type :search
                      :placeholder "Search: `music`, `database` ..."
-                     :on-change #(fh/handle-change % [:forms :os-projects :search] :query)
+                     :on-change #(fh/handle-change % [:forms :projects :search] :query)
                      :value @query}]]]
           [:p "Looking to improve your skills and contribute? These projects are active and welcome beginners."]
           [:div.listing-list

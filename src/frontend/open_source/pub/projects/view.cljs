@@ -1,11 +1,11 @@
-(ns open-source.pub.os-projects.view
+(ns open-source.pub.projects.view
   (:require [re-frame.core :refer [subscribe]]
             [open-source.components.ui :as ui]
             [clojure.string :as str]))
 
 (defn view
   [data]
-  (let [data (subscribe [:key :os-projects :selected])]
+  (let [data (subscribe [:key :projects :selected])]
     (fn []
       (let [data @data]
         [:div.listings

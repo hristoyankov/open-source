@@ -14,9 +14,7 @@
 
             [open-source.manage.projects.list   :as mpl]
             [open-source.manage.projects.create :as mpc]
-            [open-source.manage.projects.edit   :as mpe]
-
-            [open-source.forgot-password :as fp]))
+            [open-source.manage.projects.edit   :as mpe]))
 
 (enable-console-print!)
 
@@ -36,24 +34,19 @@
               [:a {:href "/"} "Clojure Work"]]
              [:div.tagline
               [:a {:href "/"} "use the language you love"]]
-             [:a.manage {:href "/manage/jobs"}
-              (if-let [cu @current-user] "manage your listings" "sign up or log in")]]])
-         (when (#{:manage :admin} l0)
-           [user-info current-user])
+             [:a.manage {:href "/manage/projects"}]]])
          [:div.container {:class (if (= l0 :public) "pub" "manage")}
           (when @initialized
             [:div.panel
-             (if (and (= l0 :manage) (not @current-user))
-               [login/view]
-               (case [l0 l1 l2]                                                 
-                 [:public :projects  :list]   [opl/view]
-                 [:public :projects  :view]   [opv/view]
-                 
-                 [:manage :projects :list]    [mopl/view]
-                 [:manage :projects :edit]    [mope/view]
-                 [:manage :projects :new]     [mopc/view]
-                                                 
-                 [nil nil nil] [:div]))])]]))))
+             (case [l0 l1 l2]                                                 
+               [:public :projects  :list]   [ppl/view]
+               [:public :projects  :view]   [ppv/view]
+               
+               [:manage :projects :list]    [mpl/view]
+               [:manage :projects :edit]    [mpe/view]
+               [:manage :projects :new]     [mpc/view]
+               
+               [nil nil nil] [:div])])]]))))
 
 (defn -main []
   (dispatch-sync [:initialize])

@@ -1,9 +1,9 @@
-(ns open-source.manage.os-projects.os-project-form
+(ns open-source.manage.projects.project-form
   (:require [re-frame.core :refer [dispatch subscribe]]
             [open-source.components.form-helpers :as fh]
             [open-source.utils :as u]
             [open-source.components.ui :as ui]
-            [open-source.manage.os-projects.preview :as preview]))
+            [open-source.manage.projects.preview :as preview]))
 
 (defn submit-text
   [data]
@@ -42,32 +42,32 @@
              [:div.field
               [:p.warning "Projects should be beginner friendly: please only post if you're willing to help and accept contributions from new Clojurists :)"]]]
             [:div.section.clearfix
-             [input :text :os-project/name
+             [input :text :project/name
               :required true
               :placeholder "luminus"]
-             [input :text :os-project/tagline
+             [input :text :project/tagline
               :tip [:span "A brief description that conveys the project's purpose"
                     [:span [ui/markdown-help-toggle]]]
               :placeholder "An all-inclusive micro-framework for web dev"]
-             [input :text :os-project/repo-url
+             [input :text :project/repo-url
               :required true
               :label "Repo URL"
               :placeholder "https://github.com/luminus-framework/luminus"
               :tip [:span "Where to view the repo in a browser"]]
-             [input :text :os-project/home-page-url
+             [input :text :project/home-page-url
               :required true
               :label "Home Page URL"
               :placeholder "http://luminusweb.net/"
               :tip [:span "Where to learn about the project. It can be the same as the repo URL."]]
-             [input :text :os-project/beginner-issues-label
+             [input :text :project/beginner-issues-label
               :label "Tag for beginner-friendly issues"
               :placeholder "beginner"
               :tip [:span "The tag you use e.g. on GitHub to distinguish which issues are easy enough for beginners"]]
-             [input :text :os-project/tags
+             [input :text :project/tags
               :tip "Comma-separated"
               :placeholder "web development, framework, backend, frontend"]
 
-             [input :textarea :os-project/description
+             [input :textarea :project/description
               :placeholder "Luminus is a Clojure micro-framework for web development. We have an active community that's dedicated to helping new-comers. To learn about how to get involved, please visit our contribute page: http://www.luminusweb.net/contribute. You can also stop by #luminus on Slack or IRC."
               :required true
               :tip [:span "What your project does and instructions on how people can get involved."]]]
