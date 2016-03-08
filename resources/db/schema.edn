@@ -1,0 +1,49 @@
+{:open-source/base-schema
+ {:txes [[{:db/ident :project/name
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/tagline
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/repo-url
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/home-page-url
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/tags
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/many
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/beginner-issues-label
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}
+
+          {:db/ident :project/description
+           :db/id #db/id [:db.part/db]
+           :db/valueType :db.type/string
+           :db/cardinality :db.cardinality/one
+           :db/fulltext true
+           :db.install/_attribute :db.part/db}]]}}

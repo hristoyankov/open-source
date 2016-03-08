@@ -1,0 +1,15 @@
+- name: Install required system packages
+  apt: pkg="{{item}}" state=installed update-cache=yes
+  with_items:
+  - nginx
+  - openssl
+
+- name: Nginx config
+  copy: src=files/nginx-http.conf dest={{ nginx_dir }}/nginx.conf
+  notify:
+    - reload nginx
+
+- name: start nginx
+  service: name=nginx state=started
+  become: yes
+  become_method: sudo
