@@ -4,9 +4,9 @@
 
 (defn process-params
   [ctx]
-  (update-in [:request :params]
-             c/ensure-http
-             [:project/repo-url :project/home-page-url]))
+  (update-in ctx [:request :params]
+                 c/ensure-http
+                 [:project/repo-url :project/home-page-url]))
 
 (def result-data (c/result-data (c/query-result q/projects)))
 

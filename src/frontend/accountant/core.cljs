@@ -62,7 +62,6 @@
   (let [js-history (.. history -window_ -history)
         url (get-url history token)]
     (when (route-checks)
-      (println "setting token")
       (.pushState js-history nil (or title js/document.title "") url)
       (.dispatchEvent history (Event. token)))))
 
@@ -100,7 +99,6 @@
            fragment (uri->fragment uri)
            relative-href (str path query fragment)
            title (.-title target)]
-       (.log js/console (.-defaultPrevented e) e)
        (when (and (not any-key)
                   (= button 0)
                   (= domain (aget js/window "location" "hostname"))

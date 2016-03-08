@@ -24,6 +24,9 @@
 (defn resource-routes []
   (routes
    (GET "/" [] (html "index.html"))
+   (GET "/manage/projects" [] (html "index.html"))
+   (GET "/manage/projects/new" [] (html "index.html"))
+   (GET "/manage/projects/:id/edit" [] (html "index.html"))
    
    (resource-route "/init"            init/resource-decisions nil)
    (resource-route "/manage/projects" projects/resource-decisions nil)

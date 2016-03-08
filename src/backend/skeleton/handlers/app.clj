@@ -19,14 +19,11 @@
 (def middleware
   (-> site-defaults
       (assoc-in [:static :resources] "/")
-      (assoc-in [:session :store] (sc/cookie-store {:key "customize this.."}))))
-
-(def auth-backend (session-backend))
+      (assoc-in [:security :anti-forgery] false)))
 
 (defn create-app [db-uri]
   (-> (routes/resource-routes)
-      (wrap-authentication auth-backend)
-      ;; (log-params) uncomment to log
+      (log-params)
       (md/wrap-datomic db-uri)
       (f/wrap-restful-format :formats [:transit-json])
       (wrap-defaults middleware)))
