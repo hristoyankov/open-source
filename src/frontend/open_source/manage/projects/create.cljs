@@ -15,4 +15,4 @@
        [:div.title [:h1 "Post an Open Source Project"]]
        [:div.wizard
         [:div.spiff.inset
-         [pf/form [:project :create] source]]]])))
+         [pf/form [:projects :create] source]]]])))

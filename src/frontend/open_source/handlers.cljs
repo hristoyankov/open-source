@@ -55,7 +55,7 @@
             [:public :projects :list]  (sfx "Open Source Clojure Projects")
 
             [:public :job-listings :view] (sfx (get-in db [:job-listings :selected :listing/job-title]))
-            [:public :projects :view]  (sfx (get-in db [:projects :selected :os-project/name]))
+            [:public :projects :view]  (sfx (get-in db [:projects :selected :project/name]))
 
             [:manage :job-listings :list] (sfx "Manage Job Listings")
             [:manage :job-listings :edit] (sfx "Edit Job Listing")

@@ -13,7 +13,7 @@
         (merge {:nav {:l0 :manage
                       :l1 :projects
                       :l2 :new}})
-        (assoc-in [:forms :os :create] db/form-default))))
+        (assoc-in [:forms :projects :create] db/form-default))))
 
 (register-handler :edit-project
   [trim-v]
@@ -23,7 +23,7 @@
           (merge {:nav {:l0 :manage
                         :l1 :projects
                         :l2 :edit}})
-          (update-in [:forms :os :update] merge {:data listing
+          (update-in [:forms :projects :update] merge {:data listing
                                                  :base listing})))))
 
 (register-handler :create-project-success

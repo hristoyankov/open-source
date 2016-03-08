@@ -12,14 +12,16 @@
 
 (defn resource-decisions
   [_]
-  {:create {:post! (comp c/add-result c/create process-params)
+  {:create {:authorized? (fn [ctx] (println "checking auth") true)
+            :post! (comp c/add-result c/create process-params)
             :handle-created result-data}
 
-   :update {:put! (comp c/add-result c/update)
+   :update {:authorized? true
+            :put! (comp c/add-result c/update)
             :handle-ok result-data}})
 
 (comment :delete {:delete! (comp c/add-result c/delete)
-                     :delete-enacted? true
-                     :respond-with-entity? true
-                     :handle-ok result-data})
+                  :delete-enacted? true
+                  :respond-with-entity? true
+                  :handle-ok result-data})
 

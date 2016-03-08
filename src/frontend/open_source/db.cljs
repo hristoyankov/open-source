@@ -10,9 +10,9 @@
 
 (def default-value {:projects     {:selected nil}
 
-                    :forms {:projects          {:create form-default
-                                                :update form-default
-                                                :search form-default}}
+                    :forms {:projects {:create form-default
+                                       :update form-default
+                                       :search form-default}}
 
                     :data {}
                     :nav {}

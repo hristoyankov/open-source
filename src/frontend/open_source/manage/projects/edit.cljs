@@ -15,4 +15,4 @@
        [:div.title [:h1 "Edit Project"]]
        [:div.wizard
         [:div.spiff.inset
-         [pf/form [:os :update] source]]]])))
+         [pf/form [:projects :update] source]]]])))

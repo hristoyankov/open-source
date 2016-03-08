@@ -40,9 +40,9 @@
              ^{:key (str "os-project-" (:db/id l))}
              [:a.listing.clearfix {:href (u/slug l)}
               [:div.core
-               [:div.title [ui/attr l :os-project/name]]
-               [ui/attr l :os-project/tagline]
-               (if-let [t (:os-project/tags l)]
+               [:div.title [ui/attr l :project/name]]
+               [ui/attr l :project/tagline]
+               (if-let [t (:project/tags l)]
                  [:div.tags
                   (for [tag (map str/trim (str/split t ","))]
                     ^{:key (gensym)} [filter-tag tag])])]])]]
@@ -50,7 +50,7 @@
           [:div.section
            [:div
             [:button.submit.target
-             {:on-click #(r/nav "/manage/os/new" "Post your project")}
+             {:on-click #(r/nav "/manage/projects/new" "Post your project")}
              "Post your project"]]]
           [:div.section.tags
            [:h3 "Filter by Tag"]
