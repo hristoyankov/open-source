@@ -9,7 +9,7 @@
     (fn []
       (let [data @data]
         [:div.listings
-         [:div.view-all [:a {:href "/os"} "← view all open source projects"]]
+         [:div.view-all [:a {:href "/"} "← view all open source projects"]]
          [:div.os-project.detail.clearfix
           [:div.meta
            [:div.title [ui/attr data :project/name]]

@@ -18,19 +18,19 @@
 (register-handler :edit-project
   [trim-v]
   (fn [db [id]]
-    (let [listing (c/data-by-id db :my-projects id)]
+    (let [listing (c/data-by-id db :projects :slug (str "projects/" id))]
       (-> db
           (merge {:nav {:l0 :manage
                         :l1 :projects
                         :l2 :edit}})
           (update-in [:forms :projects :update] merge {:data listing
-                                                 :base listing})))))
+                                                       :base listing})))))
 
 (register-handler :create-project-success
   [trim-v]
   (fn [db [data]]
     (-> (merge-with merge db data)
-        (merge {:nav {:l0 :manage
+        (merge {:nav {:l0 :public
                       :l1 :projects
                       :l2 :list}}))))
 

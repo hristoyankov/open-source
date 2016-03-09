@@ -23,20 +23,10 @@
 (c/register-forms db/forms)
 
 ;; view/nav
-
-(register-handler :view-job-listing
+(register-handler :view-project
   [trim-v]
   (fn [db [id]]
-    (let [listing (c/data-by-id db :job-listings id)]
-      (merge db {:nav {:l0 :public
-                       :l1 :job-listings
-                       :l2 :view}
-                 :job-listings {:selected listing}}))))
-
-(register-handler :view-os-project
-  [trim-v]
-  (fn [db [id]]
-    (let [listing (c/data-by-id db :projects id)]
+    (let [listing (c/data-by-id db :projects :slug (str "projects/" id))]
       (merge db {:nav {:l0 :public
                        :l1 :projects
                        :l2 :view}

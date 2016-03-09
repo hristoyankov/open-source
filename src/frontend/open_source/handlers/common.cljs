@@ -88,6 +88,6 @@
 ;;
 
 (defn data-by-id
-  [db k id]
-  (first (filter #(= id (str (:db/id %)))
-                 (get-in db [:data k]))))
+  [db path k id]
+  (first (filter #(= id (str (k %)))
+                 (get-in db [:data path]))))

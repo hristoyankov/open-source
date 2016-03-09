@@ -18,7 +18,7 @@
                            :l2 :list}}]))
 
 (defroute-ga "/projects/:id" {:keys [id]}
-  (dispatch [:view-os-project id]))
+  (dispatch [:view-project id]))
 
 (defroute-ga "/manage/projects" {}
   (dispatch [:merge {:nav {:l0 :manage

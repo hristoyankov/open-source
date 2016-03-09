@@ -7,6 +7,15 @@
 
 (def projects (atom {}))
 
+(def project-keys [:project/name
+                   :project/tagline
+                   :project/repo-url
+                   :project/home-page-url 
+                   :project/beginner-issues-label
+                   :project/description
+                   :project/tags
+                   :project/beginner-friendly])
+
 (defn path->slug
   [p]
   (str/replace p #"(\.edn$)" ""))
@@ -34,3 +43,10 @@
   [projects]
   {:projects (->> (vals projects)
                   (sort-by (comp str/lower-case :project/name)))})
+
+
+
+(defn write-project!
+  [projects project]
+  (let [path "projects/test.edn"]
+    (swap! projects assoc path (merge project {:path path :sha "xzy" :slug (path->slug path)}))))

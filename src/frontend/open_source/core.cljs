@@ -31,10 +31,9 @@
            [:div.hero
             [:div.container
              [:div.banner
-              [:a {:href "/"} "Clojure Work"]]
+              [:a {:href "/"} "Open Source Clojure"]]
              [:div.tagline
-              [:a {:href "/"} "use the language you love"]]
-             [:a.manage {:href "/manage/projects"}]]])
+              [:a {:href "/"} "contribute to the community"]]]])
          [:div.container {:class (if (= l0 :public) "pub" "manage")}
           (when @initialized
             [:div.panel
