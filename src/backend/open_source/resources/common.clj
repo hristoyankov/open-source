@@ -9,6 +9,10 @@
   [record]
   (into {} (remove (comp nil? second) record)))
 
+(defn params
+  [ctx]
+  (get-in ctx [:request :params]))
+
 (defn errors-map
   [errors]
   {:errors errors
@@ -42,22 +46,6 @@
   (reduce (fn [m k] (clojure.core/update m k add-http))
           x
           url-keys))
-
-(defn result-novelty
-  [ctx & [id]]
-  (let [id  (or id (ctx-id ctx) (created-id ctx))
-        ent (into {} (dj/ent id (db-after ctx)))]
-    {:novelty (merge {:db/id id}
-                     (medley/map-vals (fn [v] (if-let [id (:db/id v)]
-                                               {:db/id id}
-                                               v))
-                                      ent))}))
-
-(defn result-data
-  [& queries]
-  (fn [ctx]
-    (apply merge-with merge (result-novelty ctx) (map #(% ctx) queries))))
-
 
 (defn projects
   [ctx]

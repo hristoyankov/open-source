@@ -12,13 +12,7 @@
                    (select-keys db/project-keys)))))
 
 
-(defn slugify
-  [txt]
-  (-> txt
-      str/lower-case
-      (str/replace #"[^a-zA-Z0-9]" "-")
-      (str/replace #"-+" "-")
-      (str/replace #"-$" "")))
+
 
 (defn params->project
   [params]
@@ -33,7 +27,7 @@
   [_]
   {:create {:authorized? true
             :post! (fn [ctx]
-                     (let [project (process-params (c/params ctx))]
+                     (let [project (c/params (process-params ctx))]
                        (db/write-project! (c/projects ctx) project)))
             :handle-created list-projects}
 

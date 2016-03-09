@@ -1,6 +1,7 @@
 (ns open-source.manage.projects.handlers
   (:require [re-frame.core :refer [register-handler dispatch trim-v path]]
             [ajax.core :refer [GET POST DELETE PUT]]
+            [open-source.routes :as r]
             [open-source.utils :as u]
             [open-source.routes :as r]
             [open-source.db :as db]
@@ -29,10 +30,8 @@
 (register-handler :create-project-success
   [trim-v]
   (fn [db [data]]
-    (-> (merge-with merge db data)
-        (merge {:nav {:l0 :public
-                      :l1 :projects
-                      :l2 :list}}))))
+    (r/nav "/" "remove")
+    (merge-with merge db data)))
 
 
 ;; ===========
