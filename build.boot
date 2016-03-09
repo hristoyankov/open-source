@@ -19,7 +19,6 @@
                  [com.flyingmachine/webutils          "0.1.6"]
                  [com.flyingmachine/datomic-junk      "0.2.3"]
                  [com.flyingmachine/vern              "0.1.0-SNAPSHOT"]
-                 [com.flyingmachine/vern              "0.1.0-SNAPSHOT"]
                  [http-kit                            "2.1.16"]
                  [com.datomic/datomic-free            "0.9.5344"]
                  [compojure                           "1.3.4"]
@@ -33,6 +32,7 @@
                  [hiccup                              "1.0.5"]
                  [me.raynes/cegdown                   "0.1.1"]
                  [tentacles                           "0.5.1"]
+                 [org.apache.httpcomponents/httpclient "4.5.1"]
 
                  ;; client
                  [reagent                     "0.5.1" :exclusions [cljsjs/react]]

@@ -1,27 +1,41 @@
 (ns open-source.resources.projects
   (:require [open-source.resources.common :as c]
-            [open-source.db.queries :as q]))
+            [open-source.db.github :as db]))
+
+(def project-keys [:project/name :project/tagline :project/repo-url
+                   :project/home-page-url :project/tags
+                   :project/beginner-issues-label
+                   :project/description :project/beginner-friendly])
 
 (defn process-params
   [ctx]
   (update-in ctx [:request :params]
-                 c/ensure-http
-                 [:project/repo-url :project/home-page-url]))
+             (fn [params]
+               (-> params
+                   (c/ensure-http [:project/repo-url :project/home-page-url])
+                   (select-keys project-keys)))))
 
-(def result-data (c/result-data (c/query-result q/projects)))
+(defn create-project
+  [params])
+
+(defn list-projects
+  [ctx]
+  (db/list-projects @(c/projects ctx)))
 
 (defn resource-decisions
   [_]
-  {:create {:authorized? (fn [ctx] (println "checking auth") true)
-            :post! (comp c/add-result c/create process-params)
-            :handle-created result-data}
+  {:create {:authorized? true
+            :post! (fn [ctx]
+                     (let [project (create-project (c/params ctx))]
+                       (swap! (c/projects ctx) assoc (:path project) project)))
+            :handle-created list-projects}
 
    :update {:authorized? true
-            :put! (comp c/add-result c/update)
-            :handle-ok result-data}})
+            :put! (fn [ctx])
+            :handle-ok list-projects}})
 
 (comment :delete {:delete! (comp c/add-result c/delete)
                   :delete-enacted? true
                   :respond-with-entity? true
-                  :handle-ok result-data})
+                  :handle-ok list-projects})
 

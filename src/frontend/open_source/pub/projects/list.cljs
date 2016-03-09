@@ -21,14 +21,10 @@
     (fn []
       (let [listings @listings
             tags @tags]
+        (println listings)
         [:div
          [:div.main.listings.public
           [:div.nav.clearfix
-           [:div.pill-nav
-            [:a {:href "/"}
-             "Jobs"]
-            [:a.active 
-             "Open Source Projects"]]
            [:div.search
             [:input {:type :search
                      :placeholder "Search: `music`, `database` ..."
@@ -37,8 +33,8 @@
           [:p "Looking to improve your skills and contribute? These projects are active and welcome beginners."]
           [:div.listing-list
            (for [l listings]
-             ^{:key (str "os-project-" (:db/id l))}
-             [:a.listing.clearfix {:href (u/slug l)}
+             ^{:key (str "os-project-" (:slug l))}
+             [:a.listing.clearfix {:href (:slug l)}
               [:div.core
                [:div.title [ui/attr l :project/name]]
                [ui/attr l :project/tagline]

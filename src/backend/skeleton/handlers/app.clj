@@ -16,14 +16,18 @@
     (println (:params req))
     (f req)))
 
+
+(defn wrap-projects [handler projects]
+  (fn [request] (handler (assoc request :projects projects))))
+
 (def middleware
   (-> site-defaults
       (assoc-in [:static :resources] "/")
       (assoc-in [:security :anti-forgery] false)))
 
-(defn create-app [db-uri]
+(defn create-app [projects]
   (-> (routes/resource-routes)
       (log-params)
-      (md/wrap-datomic db-uri)
+      (wrap-projects projects)
       (f/wrap-restful-format :formats [:transit-json])
       (wrap-defaults middleware)))

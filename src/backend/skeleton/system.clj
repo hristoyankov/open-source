@@ -1,17 +1,18 @@
 (ns skeleton.system
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :as hk]
-            [skeleton.handlers.app :as app]))
+            [skeleton.handlers.app :as app]
+            [open-source.db.github :refer [projects]]))
 
 ;; ring app
-(defrecord RingApp [db-uri]
+(defrecord RingApp [projects]
   component/Lifecycle
   (start [component]
-    (assoc component :app (app/create-app db-uri)))
+    (assoc component :app (app/create-app projects)))
   (stop [component]
     (assoc component :app nil)))
-(defn new-ring-app [db-uri]
-  (map->RingApp {:db-uri db-uri}))
+(defn new-ring-app [projects]
+  (map->RingApp {:projects projects}))
 
 ;; http server
 (defn new-http-kit [ring-app config]
@@ -37,6 +38,6 @@
 (defn build [env]
   (let [config (env->config env)]
     (component/system-map
-     :ring-app (new-ring-app (:db-uri config))
+     :ring-app (new-ring-app projects)
      :server   (component/using (new-http-server (:http-server config))
                                 [:ring-app]))))

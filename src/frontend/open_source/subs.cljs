@@ -13,26 +13,25 @@
  (fn [db [_ & path]]
    (reaction (get-in @db (concat [:forms] path [:data])))))
 
-(defn filter-listings
-  [query jobs]
+(defn filter-items
+  [query items]
   (if (empty? query)
-    jobs
+    items
     (let [query (str/lower-case query)]
-      (filter (fn [job]
+      (filter (fn [item]
                 (not= -1
-                      (.indexOf (->> (vals job)
+                      (.indexOf (->> (vals item)
                                      (filter string?)
                                      (str/join " ")
-                                     (str/lower-case)
-                                     (#(if (:listing/remote job) (str % " remote") %)))
+                                     (str/lower-case))
                                 query)))
-              jobs))))
+              items))))
 
 (defn filter-by
   [db data-path query-path]
-  (let [query  (reaction (get-in @db query-path))
-        jobs   (reaction (get-in @db data-path))]
-    (reaction (filter-listings @query @jobs))))
+  (let [query (reaction (get-in @db query-path))
+        items (reaction (get-in @db data-path))]
+    (reaction (filter-items @query @items))))
 
 (register-sub
  :filtered-projects

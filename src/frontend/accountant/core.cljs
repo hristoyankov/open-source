@@ -20,9 +20,7 @@
 
 (defn route-checks
   []
-  (if (= (aget js/window "location" "pathname") "/manage/jobs/new")
-    (confirm-reset-create-listing @app-db)
-    true))
+  true)
 
 (defonce history (Html5History.))
 
