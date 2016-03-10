@@ -70,4 +70,6 @@
   [listing]
   (str "/projects/" (:db/id listing) "/" (slugify (str (:project/name listing)))))
 
-
+(defn split-tags
+  [tags]
+  (map (comp s/lower-case s/trim) (s/split tags ",")))

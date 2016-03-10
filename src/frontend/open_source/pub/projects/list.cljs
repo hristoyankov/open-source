@@ -7,21 +7,23 @@
             [open-source.components.form-helpers :as fh]))
 
 (defn filter-tag
-  [tag]
-  [:span.tag {:data-prevent-nav true
+  [tags tag]
+  [:span.tag {:class (if (get tags tag) "active")
+              :data-prevent-nav true
               :on-click #(do (.stopPropagation %)
                              (.preventDefault %)
-                             (dispatch [:edit-field [:forms :projects :search :data :query] tag]))} tag])
+                             (dispatch [:toggle-tag tag]))} tag])
 
 (defn view
   []
-  (let [listings (subscribe [:filtered-projects])
-        query (subscribe [:key :forms :projects :search :data :query])
-        tags  (subscribe [:project-tags])]
+  (let [listings      (subscribe [:filtered-projects])
+        search-input  (fh/builder [:projects :search])
+        selected-tags (subscribe [:key :forms :projects :search :data :tags])
+        tags          (subscribe [:project-tags])]
     (fn []
       (let [listings @listings
-            tags @tags]
-        (println listings)
+            tags @tags
+            selected-tags @selected-tags]
         [:div
          [:div.intro
           [:div.main
@@ -43,20 +45,19 @@
                   [:div.beginner-friendly "beginner friendly"])
                 (if-let [t (:record/tags l)]
                   [:div.tags
-                   (for [tag (map str/trim (str/split t ","))]
-                     ^{:key (gensym)} [filter-tag tag])])]]])]]
+                   (for [tag (u/split-tags t)]
+                     ^{:key (gensym)} [filter-tag selected-tags tag])])]]])]]
          [:div.secondary.listings
           [:div.section.search
-           [:input {:type :search
-                    :placeholder "Search: `music`, `database` ..."
-                    :on-change #(fh/handle-change % [:forms :projects :search] :query)
-                    :value @query}]]
+           [search-input :search :query
+            :no-label true
+            :placeholder "Search: `music`, `database` ..."]]
           [:div.section.beginner-toggle
-           ]
+           [search-input :checkbox :beginner-friendly :label "Beginner friendly?"]]
           [:div.section.tags
            [:div
             (for [tag tags]
-              ^{:key (gensym)} [filter-tag tag])]]
+              ^{:key (gensym)} [filter-tag selected-tags tag])]]
           [:div.section
            [:div.details
             [:h3 "Learn Clojure"]

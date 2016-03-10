@@ -1,6 +1,8 @@
 (ns open-source.subs
-  (:require [re-frame.core :refer [register-sub]]
-            [clojure.string :as str])
+  (:require [re-frame.core :refer [register-sub subscribe]]
+            [clojure.string :as str]
+            [clojure.set :as set]
+            [open-source.utils :as u])
   (:require-macros [reagent.ratom :refer [reaction]]))
 
 (register-sub
@@ -27,21 +29,34 @@
                                 query)))
               items))))
 
-(defn filter-by
-  [db data-path query-path]
-  (let [query (reaction (get-in @db query-path))
-        items (reaction (get-in @db data-path))]
+(defn filter-query
+  [db query-path items]
+  (let [query (reaction (get-in @db query-path))]
     (reaction (filter-items @query @items))))
+
+(defn filter-tags
+  [db tag-path items]
+  (let [tags (reaction (get-in @db tag-path))]
+    (reaction
+     (let [tags (set @tags)
+           items @items]
+       (if (empty? tags)
+         items
+         (filter #(not (zero? (count (set/intersection tags (set (u/split-tags (:record/tags %)))))))
+                 items))))))
 
 (register-sub
  :filtered-projects
  (fn [db _]
-   (filter-by db [:data :projects] [:forms :projects :search :data :query])))
+   (let [items (reaction (get-in @db [:data :projects]))]
+     (->> items
+          (filter-query db [:forms :projects :search :data :query])
+          (filter-tags db [:forms :projects :search :data :tags])))))
 
 (register-sub
  :project-tags
  (fn [db _]
-   (let [listings (reaction (get-in @db [:data :projects]))]
+   (let [listings (subscribe [:filtered-projects])]
      (reaction
       (->> @listings
            (mapcat (fn [l] (str/split (:record/tags l) ",")))

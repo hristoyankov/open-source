@@ -50,7 +50,7 @@
         need-update (filter (fn [file] (not= (get-in current-projects [(:path file) :sha])
                                             (:sha file)))
                             files)
-        need-delete (set/difference (into #{} (keys current-projects)) (into #{} (map :path files)))]
+        need-delete (set/difference (set (keys current-projects)) (set (map :path files)))]
     (->> need-update
          (pmap (fn [file] (merge-github-data file (edn/read-string (:body @(http/get (:download_url file)))))))
          (reduce (fn [xs x] (assoc xs (:path x) x))

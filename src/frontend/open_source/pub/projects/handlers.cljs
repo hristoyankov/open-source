@@ -50,3 +50,15 @@
     (DELETE (str "/projects/" (:db/id listing))
             {:handler (c/ajax-success :merge-result)})
     db))
+
+;; ===========
+;; search
+;; ===========
+
+(register-handler :toggle-tag
+  [trim-v]
+  (fn [db [tag]]
+    (update-in db [:forms :projects :search :data :tags]
+               (fn [tags]
+                 (let [tags (set tags)]
+                   (if (tags tag) (disj tags tag) (conj tags tag)))))))

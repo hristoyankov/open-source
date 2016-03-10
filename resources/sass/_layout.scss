@@ -206,10 +206,6 @@ body {
   }
 }
 
-.secondary.listings {
-  // @include leader(-.25);
-}
-
 .book-cover {
   //text-align: center;
   img {
@@ -439,6 +435,9 @@ body {
   cursor: pointer;
   &:hover {
     top: -1px;
+  }
+  &.active {
+    background: $salmon;
   }
 }
 
@@ -811,4 +810,13 @@ hr {
 .owner {
   float: right;
   margin-right: .5em;
+}
+
+// search form
+.field.beginner-friendly {
+  label {
+    text-transform: lowercase;
+    margin-left: .15em;
+  }
+  div { float: left; }
 }
