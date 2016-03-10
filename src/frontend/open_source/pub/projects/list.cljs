@@ -34,14 +34,15 @@
           [:div.listing-list
            (for [l listings]
              ^{:key (str "os-project-" (:slug l))}
-             [:a.listing.clearfix {:href (:slug l)}
-              [:div.core
-               [:div.title [ui/attr l :project/name]]
-               [ui/attr l :project/tagline]
-               (if-let [t (:record/tags l)]
-                 [:div.tags
-                  (for [tag (map str/trim (str/split t ","))]
-                    ^{:key (gensym)} [filter-tag tag])])]])]]
+             [:div.listing-container
+              [:a.listing.clearfix {:href (:slug l)}
+               [:div.core
+                [:div.title [ui/attr l :project/name]]
+                [ui/attr l :project/tagline]
+                (if-let [t (:record/tags l)]
+                  [:div.tags
+                   (for [tag (map str/trim (str/split t ","))]
+                     ^{:key (gensym)} [filter-tag tag])])]]])]]
          [:div.secondary.listings
           [:div.section
            [:div

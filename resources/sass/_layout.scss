@@ -275,13 +275,41 @@ body {
 
 .pub {
   .listing-list {
-    border-bottom: 1px solid #eee;
+    // border-bottom: 1px solid #eee;
   }
-  .listing {
-    border-bottom: none;
-    cursor: pointer;
+
+  .listing-container {
+    position: relative;
+    @include span(3 of 9);
+    &:nth-child(3n) {
+      @include span(3 of 9 at 7);
+    }
+    height: 10.5em;
+    @include trailer(.5);
+    z-index: 0;
     &:hover {
-      background: #f4fbfc;
+      z-index: 1;
+    }
+  }
+  
+  .listing {
+    // border-bottom: none;
+    box-sizing: border-box;
+    height: 10.5em;
+    overflow-y: hidden;
+    cursor: pointer;
+    z-index: 0;
+    position: relative;
+    transition: all 0.2s;
+    left: 0;
+    top: 0;
+    &:hover {
+      height: 16.5em;
+      width: 16em;
+      z-index: 1;
+      left: -1.5em;
+      top: -.5em;
+      border: 1px solid #ffd4cc;
     }
   }
 }
