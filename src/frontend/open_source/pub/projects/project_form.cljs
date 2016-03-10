@@ -40,7 +40,13 @@
            [:div
             [:div.section
              [:div.field
-              [:p.warning "Projects should be beginner friendly: please only post if you're willing to help and accept contributions from new Clojurists :)"]]]
+              [:div.warning
+               [:p "Please provide clear instructions (in the description or in a link) for:"]
+               [:ul
+                [:li "Developing the project locally"]
+                [:li "Running tests if there are tests"]
+                [:li "Contributing code (pull request? tests required?)"]
+                [:li "Contacting other devs - slack, mailing list, IRC, etc"]]]]]
             [:div.section.clearfix
              [input :text :project/name
               :required true
@@ -59,6 +65,12 @@
               :label "Home Page URL"
               :placeholder "http://luminusweb.net/"
               :tip [:span "Where to learn about the project. It can be the same as the repo URL."]]
+             [input :checkbox :project/beginner-friendly
+              :label "Beginner friendly?"
+              :tip [:span "Does this project have clear instructions
+              for inexperienced Clojurists on how to contribute to
+              this project? Are there clearly-markeed tasks that are
+              easy enough for a noob?"]]
              [input :text :project/beginner-issues-label
               :label "Tag for beginner-friendly issues"
               :placeholder "beginner"

@@ -826,7 +826,7 @@ hr {
 }
 
 // search form
-.field.beginner-friendly {
+.secondary .field.beginner-friendly {
   label {
     text-transform: lowercase;
     margin-left: .15em;
@@ -838,5 +838,12 @@ hr {
     -ms-user-select: none;
     user-select: none;
   }
-  div { float: left; }
+}
+
+.warning {
+  color: $red;
+  ul {
+    list-style: disc;
+    margin-left: 1em;
+  }
 }

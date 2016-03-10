@@ -132,7 +132,10 @@
         [:ul {:class "error-messages"}
          (map (fn [x] ^{:key (gensym)} [:li x]) errors)])]]))
 
-(defn field [type {:keys [data form-id tip dk attr-name required label no-label] :as opts}]
+(defmulti field (fn [type _] type))
+
+(defmethod field :default
+  [type {:keys [data form-id tip dk attr-name required label no-label] :as opts}]
   (let [errors (get-in @data [:errors attr-name])]
     [:div.field {:class (str (u/kabob (name attr-name)) (when errors "error"))}
      (when-not no-label
@@ -142,6 +145,21 @@
      (when tip [:div.tip tip])
      [:div {:class (str (apply str (map name dk)) " " (name attr-name))}
       [input type (dissoc opts :tip)]
+      (when errors
+        [:ul {:class "error-messages"}
+         (map (fn [x] ^{:key (gensym)} [:li x]) errors)])]]))
+
+(defmethod field :checkbox
+  [type {:keys [data form-id tip dk attr-name required label no-label] :as opts}]
+  (let [errors (get-in @data [:errors attr-name])]
+    [:div.field {:class (str (u/kabob (name attr-name)) (when errors "error"))}
+     [:div {:class (str (apply str (map name dk)) " " (name attr-name))}
+      [input type (dissoc opts :tip)]
+      (when-not no-label
+       [:label {:for (label-for form-id attr-name) :class "label"}
+        (or label (label-text attr-name))
+        (when required [:span {:class "required"} "*"])])
+      (when tip [:div.tip tip])
       (when errors
         [:ul {:class "error-messages"}
          (map (fn [x] ^{:key (gensym)} [:li x]) errors)])]]))
