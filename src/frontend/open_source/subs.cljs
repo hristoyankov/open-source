@@ -46,7 +46,7 @@
            items @items]
        (if (empty? tags)
          items
-         (filter #(not (zero? (count (set/intersection tags (set (u/split-tags (:record/tags %)))))))
+         (filter #(every? (set (u/split-tags (:record/tags %))) tags)
                  items))))))
 
 (defn filter-toggle
