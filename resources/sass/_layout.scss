@@ -206,6 +206,10 @@ body {
   }
 }
 
+.secondary.listings {
+  // @include leader(-.25);
+}
+
 .book-cover {
   //text-align: center;
   img {
@@ -252,6 +256,10 @@ body {
   &:hover {
     color: $charcoal;
   }
+  .beginner-friendly {
+    color: $salmon;
+    @include adjust-font-size-to($ms-down1);
+  }
 }
 
 .listings {
@@ -296,6 +304,7 @@ body {
     // border-bottom: none;
     box-sizing: border-box;
     height: 10.5em;
+    width: 100%;
     overflow-y: hidden;
     cursor: pointer;
     z-index: 0;
@@ -303,13 +312,15 @@ body {
     transition: all 0.2s;
     left: 0;
     top: 0;
+    box-shadow: none;
     &:hover {
       height: 16.5em;
       width: 16em;
       z-index: 1;
       left: -1.5em;
       top: -.5em;
-      border: 1px solid #ffd4cc;
+      // border: 1px solid #ffd4cc;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.05);
     }
   }
 }
@@ -445,7 +456,7 @@ body {
 
 .section .target {
   padding: 0.5em 0.75em;
-  margin-top: .25em;
+  margin-top: -1em;
 }
 
 .my-data {
@@ -470,33 +481,9 @@ body {
   }
 }
 
-.nav {
-  .pill-nav {
-    float: left;
-  }
-  .search {
-    float: right;
-    @include leader(.25);
-    width: 50%;
-    input {
-      width: 100%;
-    }
-  }
+.section.search input {
+  width: 100%;
 }
-
-@include breakpoint($mobile) {
-  .nav {
-    .pill-nav {
-    float: none;
-    }
-    .search {
-      float: none;
-      width: 100%;
-      @include trailer;
-    }
-  }
-}
-
 
 .listing {
   &.feature {

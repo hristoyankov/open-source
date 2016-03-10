@@ -21,13 +21,14 @@ input[type=search], textarea {
 }
 
 input[type=submit], button.submit {
-  font-size: 95%;
+  font-family: $sans-family;
+  font-size: 100%;
   padding: .25em .5em;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
   background: $salmon;
-  border: 1px solid $salmon;
+  border: none;
   border-radius: 3px;
   box-shadow: 0 2px 0px rgba(167,79,62,1);
   cursor: pointer;
