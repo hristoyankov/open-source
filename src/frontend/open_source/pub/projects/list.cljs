@@ -53,7 +53,7 @@
             :no-label true
             :placeholder "Search: `music`, `database` ..."]]
           [:div.section.beginner-toggle
-           [search-input :checkbox :beginner-friendly :label "Beginner friendly?"]]
+           [search-input :checkbox :project/beginner-friendly :label "Beginner friendly?"]]
           [:div.section.tags
            [:div
             (for [tag tags]

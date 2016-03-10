@@ -433,6 +433,13 @@ body {
   color: $charcoal;
   position: relative;
   cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
   &:hover {
     top: -1px;
   }
@@ -817,6 +824,13 @@ hr {
   label {
     text-transform: lowercase;
     margin-left: .15em;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
   div { float: left; }
 }

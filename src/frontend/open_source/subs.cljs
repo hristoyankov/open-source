@@ -5,6 +5,10 @@
             [open-source.utils :as u])
   (:require-macros [reagent.ratom :refer [reaction]]))
 
+(defn path-reaction
+  [db path]
+  (reaction (get-in @db path)))
+
 (register-sub
  :key
  (fn [db [_ & path]]
@@ -31,12 +35,12 @@
 
 (defn filter-query
   [db query-path items]
-  (let [query (reaction (get-in @db query-path))]
+  (let [query (path-reaction db query-path)]
     (reaction (filter-items @query @items))))
 
 (defn filter-tags
   [db tag-path items]
-  (let [tags (reaction (get-in @db tag-path))]
+  (let [tags (path-reaction db tag-path)]
     (reaction
      (let [tags (set @tags)
            items @items]
@@ -45,13 +49,19 @@
          (filter #(not (zero? (count (set/intersection tags (set (u/split-tags (:record/tags %)))))))
                  items))))))
 
+(defn filter-toggle
+  [db toggle-path items]
+  (let [toggle (path-reaction db toggle-path)]
+    (reaction (if @toggle (filter (last toggle-path) @items) @items))))
+
 (register-sub
  :filtered-projects
  (fn [db _]
-   (let [items (reaction (get-in @db [:data :projects]))]
+   (let [items (path-reaction db [:data :projects])]
      (->> items
-          (filter-query db [:forms :projects :search :data :query])
-          (filter-tags db [:forms :projects :search :data :tags])))))
+          (filter-query  db [:forms :projects :search :data :query])
+          (filter-tags   db [:forms :projects :search :data :tags])
+          (filter-toggle db [:forms :projects :search :data :project/beginner-friendly])))))
 
 (register-sub
  :project-tags
