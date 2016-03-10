@@ -8,11 +8,12 @@
 
 (defn filter-tag
   [tags tag]
-  [:span.tag {:class (if (get tags tag) "active")
-              :data-prevent-nav true
-              :on-click #(do (.stopPropagation %)
-                             (.preventDefault %)
-                             (dispatch [:toggle-tag tag]))} tag])
+  [:span.tag-container
+   [:span.tag {:class (if (get tags tag) "active")
+               :data-prevent-nav true
+               :on-click #(do (.stopPropagation %)
+                              (.preventDefault %)
+                              (dispatch [:toggle-tag tag]))} tag]])
 
 (defn view
   []
@@ -33,7 +34,7 @@
             {:on-click #(r/nav "/projects/new" "Post your project")}
             "Post Your Project"]]]
          [:div.main.listings.public
-          [:div.listing-list
+          [ui/ctg {:transitionName "filter-survivor" :class "listing-list"}
            (for [l listings]
              ^{:key (str "os-project-" (:slug l))}
              [:div.listing-container

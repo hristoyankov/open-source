@@ -424,6 +424,12 @@ body {
   }
 }
 
+.tag-container {
+  height: 22px;
+  padding-top: 2px;
+  display: inline-block;
+}
+
 .tag {
   @include adjust-font-size-to($ms-down1);
   background: #eee;
