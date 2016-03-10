@@ -71,11 +71,11 @@
 
 (defn project-file-body
   [project]
-  (as-> project $
-    (select-keys $ project-keys)
-    (into template $)
-    (clojure.pprint/pprint $)
-    (with-out-str $)))
+  (with-out-str
+    (as-> project $
+      (select-keys $ project-keys)
+      (into template $)
+      (clojure.pprint/pprint $))))
 
 (defn write-project-to-github
   [project]

@@ -41,7 +41,7 @@
             [:div.section
              [:div.field
               [:div.warning
-               [:p "Please provide clear instructions (in the description or in a link) for:"]
+               [:p "Please provide clear instructions for the following in the description or in a link:"]
                [:ul
                 [:li "Developing the project locally"]
                 [:li "Running tests if there are tests"]
@@ -75,7 +75,7 @@
               :label "Tag for beginner-friendly issues"
               :placeholder "beginner"
               :tip [:span "The tag you use e.g. on GitHub to distinguish which issues are easy enough for beginners"]]
-             [input :text :project/tags
+             [input :text :record/tags
               :tip "Comma-separated"
               :placeholder "web development, framework, backend, frontend"]
 

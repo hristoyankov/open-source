@@ -21,6 +21,7 @@
      [:h3 "Listing View"]
      [:p "This is how your project will look on the home page, where it's with listed the rest of the listings."]
 
+     
      [:div.listing.clearfix
       [:div.core
        [:div.title [preview-attr data :project/name "Project Name"]]

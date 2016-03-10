@@ -17,7 +17,9 @@
              [:div.tagline t])]
           [:div.secondary
            [:div.section
-            [:a {:href (str "/" (:slug data) "/edit")} "Edit"]]
+            [:a {:href (str "/" (:slug data) "/edit")}
+             [:i.fa.fa-pencil]
+             " Edit"]]
            (let [repo-url (:project/repo-url data)
                  bil      (:project/beginner-issues-label data)]
              [:div.links
@@ -27,7 +29,7 @@
                 [:div.beginner-issues [ui/ext-link (str repo-url "/labels/" bil) "beginner-friendly tasks"]])
               (if-let [hp (:project/home-page-url data)]
                 [:div.home-page-url [ui/ext-link hp "home page"]])])
-           (if-let [t (:project/tags data)]
+           (if-let [t (:record/tags data)]
              [:div.tags [ui/tags t]])]
           [:div.description
            [:div.project-description (ui/markdown (:project/description data))]]]]))))
