@@ -38,7 +38,7 @@
               [:div.core
                [:div.title [ui/attr l :project/name]]
                [ui/attr l :project/tagline]
-               (if-let [t (:project/tags l)]
+               (if-let [t (:record/tags l)]
                  [:div.tags
                   (for [tag (map str/trim (str/split t ","))]
                     ^{:key (gensym)} [filter-tag tag])])]])]]
