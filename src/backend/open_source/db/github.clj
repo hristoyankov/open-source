@@ -16,8 +16,8 @@
                    :project/home-page-url 
                    :project/beginner-issues-label
                    :project/description
-                   :project/tags
-                   :project/beginner-friendly])
+                   :project/beginner-friendly
+                   :record/tags])
 
 (defn slugify
   "Take arbitrary text and format it nicely"
@@ -32,14 +32,19 @@
   [p]
   (str/replace p #"(\.edn$)" ""))
 
+(defn id
+  [p]
+  (-> (path->slug p) (str/replace #"^projects/" "")))
+
 (defn merge-github-data
   [{:keys [sha path]} project]
   (merge project
-         {:sha  sha
-          :path path
-          :slug (path->slug path)}))
+         {:sha   sha
+          :path  path
+          :slug  (path->slug path)
+          :db/id (id path)}))
 
-(defn update-projects
+(defn refresh-projects
   [current-projects]
   (let [files (r/contents user repo  "projects" {})
         need-update (filter (fn [file] (not= (get-in current-projects [(:path file) :sha])
@@ -52,7 +57,7 @@
                  current-projects)
          (#(apply dissoc % need-delete)))))
 
-(swap! projects update-projects)
+(swap! projects refresh-projects)
 
 ;; TODO parse project body
 (defn list-projects
@@ -61,17 +66,30 @@
                   (sort-by (comp str/lower-case :project/name)))})
 
 
+;; update
+(def template (sorted-map-by (fn [x y] (< (.indexOf project-keys x) (.indexOf project-keys y)))))
+
+(defn project-file-body
+  [project]
+  (as-> project $
+    (select-keys $ project-keys)
+    (into template $)
+    (clojure.pprint/pprint $)
+    (with-out-str $)))
+
+(defn write-project-to-github
+  [project]
+  (r/update-contents user
+                     repo
+                     (str "projects/" (slugify (:project/name project)) ".edn")
+                     "updating project via web"
+                     (project-file-body project)
+                     (:sha project)
+                     {:oauth-token (:open-source-github-oauth-token env)}))
 
 (defn write-project!
   [projects project]
   (let [path (str "projects/" (slugify (:project/name project)) ".edn")
-        result (:content (r/update-contents user
-                                            repo
-                                            path
-                                            "updating project via web"
-                                            (str project)
-                                            (:sha project)
-                                            {:oauth-token (:open-source-github-oauth-token env)}))]
-    
+        result (:content (write-project-to-github project))]
     (swap! projects assoc path (merge-github-data result project))
     @projects))

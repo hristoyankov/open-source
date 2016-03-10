@@ -3,21 +3,10 @@
             [open-source.db.github :as db]
             [clojure.string :as str]))
 
-(defn process-params
+
+(defn update-project
   [ctx]
-  (update-in ctx [:request :params]
-             (fn [params]
-               (-> params
-                   (c/ensure-http [:project/repo-url :project/home-page-url])
-                   (select-keys db/project-keys)))))
-
-
-
-
-(defn params->project
-  [params]
-  (let [path (slugify (:project/name params))]
-    ))
+  (db/write-project! (c/projects ctx) (c/params ctx)))
 
 (defn list-projects
   [ctx]
@@ -26,13 +15,11 @@
 (defn resource-decisions
   [_]
   {:create {:authorized? true
-            :post! (fn [ctx]
-                     (let [project (c/params (process-params ctx))]
-                       (db/write-project! (c/projects ctx) project)))
+            :post! update-project
             :handle-created list-projects}
 
    :update {:authorized? true
-            :put! (fn [ctx])
+            :put! update-project
             :handle-ok list-projects}})
 
 (comment :delete {:delete! (comp c/add-result c/delete)

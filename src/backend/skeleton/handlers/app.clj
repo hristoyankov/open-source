@@ -13,7 +13,7 @@
   "Pring every request's params to aid debugging"
   [f]
   (fn [req]
-    (println (:params req))
+    (pr (:params req))
     (f req)))
 
 

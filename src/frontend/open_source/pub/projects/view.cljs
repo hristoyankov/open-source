@@ -16,6 +16,8 @@
            (if-let [t (:project/tagline data)]
              [:div.tagline t])]
           [:div.secondary
+           [:div.section
+            [:a {:href (str "/manage/" (:slug data) "/edit")} "Edit"]]
            (let [repo-url (:project/repo-url data)
                  bil      (:project/beginner-issues-label data)]
              [:div.links
