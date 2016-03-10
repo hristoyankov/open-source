@@ -22,7 +22,28 @@
   []
   true)
 
-(defonce history (Html5History.))
+(defn build-transformer
+  "Custom transformer is needed to replace query parameters, rather
+  than adding to them.
+  See: https://gist.github.com/pleasetrythisathome/d1d9b1d74705b6771c20"
+  []
+  (let [transformer (goog.history.Html5History.TokenTransformer.)]
+    (set! (.. transformer -retrieveToken)
+          (fn [path-prefix location]
+            (str (.-pathname location) (.-search location))))
+    (set! (.. transformer -createUrl)
+          (fn [token path-prefix location]
+            (str path-prefix token)))
+    transformer))
+
+(defn make-history []
+  (doto (goog.history.Html5History. js/window (build-transformer))
+    (.setPathPrefix (str js/window.location.protocol
+                         "//"
+                         js/window.location.host))
+    (.setUseFragment false)))
+
+(defonce history (make-history))
 
 (defn- listen [el type]
   (let [out (chan)]

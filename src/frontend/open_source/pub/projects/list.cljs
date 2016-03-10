@@ -31,7 +31,7 @@
            [:p "Looking to improve your skills and contribute? These projects are active and welcome contributors."]]
           [:div.secondary
            [:button.submit.target
-            {:on-click #(r/nav "/projects/new" "Post your project")}
+            {:on-click #(r/nav "/projects/new")}
             "Post Your Project"]]]
          [:div.main.listings.public
           [ui/ctg {:transitionName "filter-survivor" :class "listing-list"}
