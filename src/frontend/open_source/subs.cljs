@@ -44,7 +44,7 @@
    (let [listings (reaction (get-in @db [:data :projects]))]
      (reaction
       (->> @listings
-           (mapcat (fn [l] (str/split (:project/tags l) ",")))
+           (mapcat (fn [l] (str/split (:record/tags l) ",")))
            (map (comp str/lower-case str/trim))
            distinct
            sort)))))

@@ -1,4 +1,4 @@
-(ns open-source.manage.projects.handlers
+(ns open-source.pub.projects.handlers
   (:require [re-frame.core :refer [register-handler dispatch trim-v path]]
             [ajax.core :refer [GET POST DELETE PUT]]
             [open-source.routes :as r]
@@ -11,7 +11,7 @@
   [trim-v]
   (fn [db _]
     (-> db
-        (merge {:nav {:l0 :manage
+        (merge {:nav {:l0 :public
                       :l1 :projects
                       :l2 :new}})
         (assoc-in [:forms :projects :create] db/form-default))))
@@ -21,13 +21,19 @@
   (fn [db [id]]
     (let [listing (c/data-by-id db :projects :slug (str "projects/" id))]
       (-> db
-          (merge {:nav {:l0 :manage
+          (merge {:nav {:l0 :public
                         :l1 :projects
                         :l2 :edit}})
           (update-in [:forms :projects :update] merge {:data listing
                                                        :base listing})))))
 
 (register-handler :create-project-success
+  [trim-v]
+  (fn [db [data]]
+    (r/nav "/" "remove")
+    (merge-with merge db data)))
+
+(register-handler :edit-project-success
   [trim-v]
   (fn [db [data]]
     (r/nav "/" "remove")
@@ -41,6 +47,6 @@
 (register-handler :delete-project
   [trim-v]
   (fn [db [listing]]
-    (DELETE (str "/manage/projects/" (:db/id listing))
+    (DELETE (str "/projects/" (:db/id listing))
             {:handler (c/ajax-success :merge-result)})
     db))

@@ -3,8 +3,7 @@
             [ajax.core :refer [GET POST DELETE PUT]]
             [open-source.handlers.common :as c]
             [open-source.handlers.init]
-            [open-source.db :as db]
-            [open-source.manage.projects.handlers]))
+            [open-source.db :as db]))
 
 ;; generic
 
@@ -43,10 +42,8 @@
           (case [l0 l1 l2]
             [:public :projects :list]  (sfx "Open Source Clojure Projects")
             [:public :projects :view]  (sfx (get-in db [:projects :selected :project/name]))
-
-            [:manage :projects :list]  (sfx "Manage OS Project Listings")
-            [:manage :projects :edit]  (sfx "Edit OS Project")
-            [:manage :projects :new]   (sfx "New OS Project")
+            [:public :projects :edit]  (sfx "Edit OS Project")
+            [:public :projects :new]   (sfx "New OS Project")
             
             [nil nil nil] (sfx "Open Source Clojure Projects")))
     db))

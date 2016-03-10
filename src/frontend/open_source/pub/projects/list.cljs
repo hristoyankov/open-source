@@ -46,7 +46,7 @@
           [:div.section
            [:div
             [:button.submit.target
-             {:on-click #(r/nav "/manage/projects/new" "Post your project")}
+             {:on-click #(r/nav "/projects/new" "Post your project")}
              "Post your project"]]]
           [:div.section.tags
            [:h3 "Filter by Tag"]

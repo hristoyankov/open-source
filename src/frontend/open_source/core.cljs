@@ -12,9 +12,8 @@
             [open-source.pub.projects.list  :as ppl]
             [open-source.pub.projects.view  :as ppv]
 
-            [open-source.manage.projects.list   :as mpl]
-            [open-source.manage.projects.create :as mpc]
-            [open-source.manage.projects.edit   :as mpe]))
+            [open-source.pub.projects.create :as ppc]
+            [open-source.pub.projects.edit   :as ppe]))
 
 (enable-console-print!)
 
@@ -40,10 +39,8 @@
              (case [l0 l1 l2]                                                 
                [:public :projects  :list]   [ppl/view]
                [:public :projects  :view]   [ppv/view]
-               
-               [:manage :projects :list]    [mpl/view]
-               [:manage :projects :edit]    [mpe/view]
-               [:manage :projects :new]     [mpc/view]
+               [:public :projects :edit]    [ppe/view]
+               [:public :projects :new]     [ppc/view]
                
                [nil nil nil] [:div])])]]))))
 

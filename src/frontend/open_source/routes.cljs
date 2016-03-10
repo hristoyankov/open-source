@@ -20,15 +20,10 @@
 (defroute-ga "/projects/:id" {:keys [id]}
   (dispatch [:view-project id]))
 
-(defroute-ga "/manage/projects" {}
-  (dispatch [:merge {:nav {:l0 :manage
-                           :l1 :projects
-                           :l2 :list}}]))
-
-(defroute-ga "/manage/projects/new" {}
+(defroute-ga "/projects/new" {}
   (dispatch [:new-project]))
 
-(defroute-ga "/manage/projects/:id/edit" {:keys [id]}
+(defroute-ga "/projects/:id/edit" {:keys [id]}
   (dispatch [:edit-project id]))
 
 (defn nav

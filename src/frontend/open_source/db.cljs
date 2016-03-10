@@ -2,7 +2,8 @@
 
 (def forms
   {:projects {:path   "manage/projects"
-              :create {:submit-form-success-handler :create-project-success}}})
+              :create {:submit-form-success-handler :create-project-success}
+              :update {:submit-form-success-handler :create-project-success}}})
 
 (def form-default {:data    {}
                    :errors  {}

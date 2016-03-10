@@ -1,9 +1,9 @@
-(ns open-source.manage.projects.project-form
+(ns open-source.pub.projects.project-form
   (:require [re-frame.core :refer [dispatch subscribe]]
             [open-source.components.form-helpers :as fh]
             [open-source.utils :as u]
             [open-source.components.ui :as ui]
-            [open-source.manage.projects.preview :as preview]))
+            [open-source.pub.projects.preview :as preview]))
 
 (defn submit-text
   [data]

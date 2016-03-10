@@ -1,4 +1,4 @@
-(ns open-source.manage.projects.preview
+(ns open-source.pub.projects.preview
   (:require [open-source.components.ui :as ui]
             [open-source.utils :as u]
             [clojure.string :as str]))
