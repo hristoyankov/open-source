@@ -69,11 +69,26 @@
 ;; update
 (def template (sorted-map-by (fn [x y] (< (.indexOf project-keys x) (.indexOf project-keys y)))))
 
+(defn add-http
+  [url]
+  (when url
+    (if (re-find #"^http" url)
+      url
+      (str "http://" url))))
+
+(defn ensure-http
+  [x url-keys]
+  (reduce (fn [m k] (clojure.core/update m k add-http))
+          x
+          url-keys))
+
+
 (defn project-file-body
   [project]
   (with-out-str
     (as-> project $
       (select-keys $ project-keys)
+      (ensure-http $ [:project/repo-url :project/home-page-url])
       (into template $)
       (clojure.pprint/pprint $))))
 

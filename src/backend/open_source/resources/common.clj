@@ -34,19 +34,6 @@
   [r]
   (if r {:record r}))
 
-(defn add-http
-  [url]
-  (when url
-    (if (re-find #"^http" url)
-      url
-      (str "http://" url))))
-
-(defn ensure-http
-  [x url-keys]
-  (reduce (fn [m k] (clojure.core/update m k add-http))
-          x
-          url-keys))
-
 (defn projects
   [ctx]
   (get-in ctx [:request :projects]))
