@@ -32,7 +32,7 @@
              [:div.banner
               [:a {:href "/"} "Open Source Clojure Projects"]]
              [:div.tagline
-              [:a {:href "/"} "write some code, live forever*"]]
+              [:a {:href "/"} "contribute code, live forever*"]]
              [:div.caveat "*maybe? hey you won't know until you try"]]])
          [:div.container {:class (if (= l0 :public) "pub" "manage")}
           (when @initialized
