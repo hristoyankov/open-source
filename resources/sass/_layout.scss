@@ -100,23 +100,32 @@ body {
 
 
 .hero {
-  background: #333745;
-  background: $light-green;
+  background: $light-green url(/images/hammer-10.png) no-repeat 1.5em bottom;
   color: $charcoal;
+  background-size: 300px;
+  position: relative;
   
-  @include padding-leader(1.5);
-  @include padding-trailer(1.5);
+  @include padding-leader(4);
+  @include padding-trailer(4);
   @include trailer(1);
 
   .banner {
     font-weight: 900;
-    text-transform: uppercase;
     @include adjust-font-size-to($ms-up5,2);
   }
   .tagline {
-    font-weight: 300;
+    font-style: italic;
+    // font-weight: 300;
     //text-transform: uppercase;
     @include adjust-font-size-to($ms-up1);
+  }
+
+  .caveat {
+    position: absolute;
+    font-weight: 300;
+    bottom: 0;
+    right: 0;
+    font-style: italic;
   }
 
   .banner, .tagline {
@@ -124,10 +133,6 @@ body {
          color: $charcoal;
          display: block;
        }
-  }
-
-  .container {
-    position: relative;
   }
 
   .manage {
