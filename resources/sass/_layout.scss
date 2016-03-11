@@ -437,21 +437,23 @@ body {
   padding: 0 .6em;
   margin-right: .2em;
   color: $charcoal;
-  position: relative;
-  cursor: pointer;
+  cursor: default;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  position: relative;
   
-  &:hover {
-    top: -1px;
-  }
   &.active {
     background: $salmon;
   }
+}
+
+.list .tag:hover {
+  cursor: pointer;
+  top: -1px;
 }
 
 .links {

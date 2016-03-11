@@ -25,7 +25,7 @@
       (let [listings @listings
             tags @tags
             selected-tags @selected-tags]
-        [:div
+        [:div.list
          [:div.intro
           [:div.main
            [:p "Looking to improve your skills and contribute? These projects are active and welcome contributors."]]

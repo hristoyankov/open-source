@@ -34,7 +34,8 @@
          {:class (if show-preview "show-preview")}
          [:div.form
           [:h2 "Details"
-           [:div.toggle {:on-click #(dispatch (into [:toggle] show-preview-path))}
+           ;; TODO make preview less ugly
+           #_[:div.toggle {:on-click #(dispatch (into [:toggle] show-preview-path))}
             (if show-preview "hide preview" "show preview")]]
           [:form (fh/on-submit form-path)
            [:div
