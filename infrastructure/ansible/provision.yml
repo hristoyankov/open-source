@@ -5,4 +5,4 @@
   roles:
     - "flyingmachine-clojure-app"
     - "flyingmachine-clojure-nginx"
-    - "flyingmachine-datomic"
+    # - "flyingmachine-datomic"

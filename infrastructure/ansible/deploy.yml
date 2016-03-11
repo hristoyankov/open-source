@@ -10,17 +10,6 @@
     copy: src=files/app.jar dest={{ app_root }}/app.jar
     become: yes
     become_user: "{{ app_user }}"
-
-  # TODO: no-downtime deploy
-  - name: Stop web app
-    service: name={{ app_name }} state=stopped
-    become: yes
-    become_method: sudo
-    
-  - name: Install schemas
-    command: chdir={{ app_root }}/ java -Xms200m -Xmx400m  -jar app.jar db/install-schemas
-    environment:
-      DB_URI: "{{ datomic_uri }}"
     
   - name: Restart web app
     service: name={{ app_name }} state=started

@@ -1,5 +1,5 @@
 ---
 # TODO refactor this into "common"
-app_user: app
-app_name: app
-app_root: /var/www/app
+app_user: open-source
+app_name: open-source
+app_root: /var/www/open-source

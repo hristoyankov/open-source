@@ -11,10 +11,10 @@ Vagrant.configure("2") do |config|
   # The Clojure app is a process running on port 3000
   # This lets you view the app directly (without nginx in front of it)
   # by visiting localhost:3100
-  config.vm.network :forwarded_port, guest: 3000, host: 3100
+  config.vm.network :forwarded_port, guest: 3100, host: 3101
 
   # Use localhost:8000 to connect to nginx
-  config.vm.network :forwarded_port, guest: 80, host: 8000
+  config.vm.network :forwarded_port, guest: 80, host: 8100
   config.vm.provision :ansible do |ansible|
     ansible.playbook = f "ansible/provision.yml"
     ansible.groups = {

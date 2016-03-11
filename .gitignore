@@ -7,5 +7,6 @@ node_modules
 *.jar
 .vagrant
 infrastructure/ansible/files/env
+infrastructure/ansible/prod
 certs
 ga-oauth-key*

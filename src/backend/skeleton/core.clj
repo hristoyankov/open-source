@@ -7,7 +7,8 @@
             [org.httpkit.server         :as hk]
             [skeleton.system            :as system]
             [skeleton.handlers.app      :as app]
-            [skeleton.db.tasks          :as dbt]))
+            [skeleton.db.tasks          :as dbt]
+            [open-source.db.github      :refer [projects]]))
 
 (defmacro final
   [& body]
@@ -17,11 +18,5 @@
   [cmd & args]
   (case cmd
     "server"
-    (-> (app/create-app (:db-uri env/env))
-        (hk/run-server {:port (Integer. (:http-server-port env/env))}))
-    
-    "db/install-schemas"
-    (final
-     (let [db-uri (:db-uri env/env)]
-       (d/create-database db-uri)
-       (dbt/conform (d/connect db-uri) "db/schema.edn")))))
+    (-> (app/create-app projects)
+        (hk/run-server {:port (Integer. (:http-server-port env/env))}))))
