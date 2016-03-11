@@ -12,6 +12,6 @@
     become_user: "{{ app_user }}"
     
   - name: Restart web app
-    service: name={{ app_name }} state=started
+    service: name={{ app_name }} state=restarted
     become: yes
     become_method: sudo

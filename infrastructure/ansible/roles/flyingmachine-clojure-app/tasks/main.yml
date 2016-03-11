@@ -6,9 +6,8 @@
 - name: Create project directory
   file: state=directory path={{ app_root }} owner={{ app_user }} group={{ app_user }} mode=755
 
-  # TODO how to abstract this?
 - name: Copy env
-  copy: src=files/env dest=/etc/environment
+  copy: src=files/env dest={{ app_root }}/env
 
 - name: Add java 7 repo
   apt_repository: repo='ppa:openjdk-r/ppa'

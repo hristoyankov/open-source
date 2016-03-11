@@ -2,17 +2,18 @@
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :as hk]
             [skeleton.handlers.app :as app]
-            [open-source.db.github :refer [projects]]))
+            [open-source.db.projects :as p]))
 
 ;; ring app
-(defrecord RingApp [projects]
+(defrecord RingApp [projects-db]
   component/Lifecycle
   (start [component]
-    (assoc component :app (app/create-app projects)))
+    ;; TODO this is so gross
+    (assoc component :app (app/create-app (get-in projects-db [:project-watcher :projects]))))
   (stop [component]
     (assoc component :app nil)))
-(defn new-ring-app [projects]
-  (map->RingApp {:projects projects}))
+(defn new-ring-app []
+  (map->RingApp {}))
 
 ;; http server
 (defn new-http-kit [ring-app config]
@@ -38,6 +39,8 @@
 (defn build [env]
   (let [config (env->config env)]
     (component/system-map
-     :ring-app (new-ring-app projects)
+     :projects-db (p/new-project-db 30000)
+     :ring-app (component/using (new-ring-app)
+                                [:projects-db])
      :server   (component/using (new-http-server (:http-server config))
                                 [:ring-app]))))

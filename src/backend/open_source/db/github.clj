@@ -6,6 +6,10 @@
             [clojure.edn :as edn]
             [environ.core :refer [env]]))
 
+(defn oauth-token
+  []
+  {:oauth-token (:open-source-github-oauth-token env)})
+
 (def projects (atom {}))
 (def user "braveclojure")
 (def repo "open-source-projects")
@@ -46,7 +50,7 @@
 
 (defn refresh-projects
   [current-projects]
-  (let [files (r/contents user repo  "projects" {})
+  (let [files (r/contents user repo  "projects" (oauth-token))
         need-update (filter (fn [file] (not= (get-in current-projects [(:path file) :sha])
                                             (:sha file)))
                             files)
@@ -56,8 +60,6 @@
          (reduce (fn [xs x] (assoc xs (:path x) x))
                  current-projects)
          (#(apply dissoc % need-delete)))))
-
-(swap! projects refresh-projects)
 
 ;; TODO parse project body
 (defn list-projects
@@ -100,7 +102,7 @@
                      "updating project via web"
                      (project-file-body project)
                      (:sha project)
-                     {:oauth-token (:open-source-github-oauth-token env)}))
+                     (oauth-token)))
 
 (defn write-project!
   [projects project]

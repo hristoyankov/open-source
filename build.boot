@@ -12,6 +12,7 @@
                  [ring/ring-devel                     "1.3.2"]
                  [ring/ring-defaults                  "0.1.4"]
                  [ring-middleware-format              "0.5.0"]
+                 [org.clojure/core.async              "0.2.374"]
                  [com.stuartsierra/component          "0.3.1"]
                  [org.danielsz/system                 "0.2.0" :scope "test"]
                  [liberator                           "0.14.0"]
