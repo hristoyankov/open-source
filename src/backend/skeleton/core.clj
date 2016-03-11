@@ -19,4 +19,4 @@
   (case cmd
     "server"
     (-> (app/create-app projects)
-        (hk/run-server {:port (Integer. (:http-server-port env/env))}))))
+        (hk/run-server {:port (Integer. (:open-source-http-server-port env/env))}))))
