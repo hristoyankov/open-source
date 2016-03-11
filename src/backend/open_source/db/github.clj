@@ -11,8 +11,8 @@
   {:oauth-token (:open-source-github-oauth-token env)})
 
 (def projects (atom {}))
-(def user "braveclojure")
-(def repo "open-source-projects")
+(def user (:open-source-github-project-user env))
+(def repo (:open-source-github-project-repo env))
 
 (def project-keys [:project/name
                    :project/tagline
