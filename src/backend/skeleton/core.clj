@@ -8,7 +8,7 @@
             [skeleton.system            :as system]
             [skeleton.handlers.app      :as app]
             [skeleton.db.tasks          :as dbt]
-            [open-source.db.github      :refer [projects]]))
+            [open-source.db.projects    :as p]))
 
 (defmacro final
   [& body]
@@ -18,5 +18,7 @@
   [cmd & args]
   (case cmd
     "server"
-    (-> (app/create-app projects)
-        (hk/run-server {:port (Integer. (:open-source-http-server-port env/env))}))))
+    (let [projects (atom {})]
+      (p/start (p/new-core-async-project-watcher projects 30000))
+      (-> (app/create-app projects)
+          (hk/run-server {:port (Integer. (:open-source-http-server-port env/env))})))))
