@@ -25,7 +25,7 @@
 
 (defn create-app [projects]
   (-> (routes/resource-routes)
-      (log-params)
+      ;; (log-params)
       (wrap-projects projects)
       (f/wrap-restful-format :formats [:transit-json])
       (wrap-defaults middleware)))
