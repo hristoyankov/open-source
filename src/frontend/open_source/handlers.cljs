@@ -32,7 +32,7 @@
                  :projects {:selected listing}}))))
 
 ;; title
-(def suffix " | Brave Clojure")
+(def suffix " | Open Source Clojure Projects")
 (defn sfx [s] (str s suffix))
 
 (register-handler :set-title
@@ -46,14 +46,4 @@
             [:public :projects :new]   (sfx "New OS Project")
             
             [nil nil nil] (sfx "Open Source Clojure Projects")))
-    db))
-
-;; state
-(register-handler :poll
-  [trim-v]
-  (fn [db _]
-    (GET "/projects"
-         :handler (fn [data]
-                    (dispatch [:merge-result data])
-                    (js/setTimeout #(dispatch [:poll]) 30000)))
     db))

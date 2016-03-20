@@ -46,7 +46,6 @@
 
 (defn -main []
   (dispatch-sync [:initialize])
-  (r/render-component [app] (u/el-by-id "app"))
-  (dispatch [:poll]))
+  (r/render-component [app] (u/el-by-id "app")))
 
 (-main)
