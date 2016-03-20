@@ -42,7 +42,7 @@
                [:public :projects :edit]    [ppe/view]
                [:public :projects :new]     [ppc/view]
                
-               [nil nil nil] [:div [:h2 "Not found"]])])]]))))
+               [nil nil nil] [:div])])]]))))
 
 (defn -main []
   (dispatch-sync [:initialize])
