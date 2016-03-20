@@ -1,0 +1,6 @@
+---
+# config/roles/lein/tasks/main.yml
+# Install boot
+
+- name: Copy boot script
+  copy: src=boot dest=/usr/bin/boot owner=root group=root mode=755
