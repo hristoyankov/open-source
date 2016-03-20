@@ -1,7 +1,5 @@
 (ns open-source.resources.common
-  (:require [datomic.api :as d]
-            [com.flyingmachine.datomic-junk :as dj]
-            [flyingmachine.webutils.validation :refer [if-valid]]
+  (:require [flyingmachine.webutils.validation :refer [if-valid]]
             [buddy.auth :as buddy]
             [medley.core :as medley]))
 

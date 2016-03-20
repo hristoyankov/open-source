@@ -1,4 +1,4 @@
-(ns skeleton.handlers.routes
+(ns open-source.handlers.routes
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.util.response :as resp]

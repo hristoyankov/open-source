@@ -1,13 +1,11 @@
-(ns skeleton.handlers.app
+(ns open-source.handlers.app
   (:require [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.middleware.session.cookie :as sc]
             [ring.middleware.format :as f]
             [compojure.core :refer [routes]]
             [buddy.auth.middleware :refer [wrap-authentication]]
             [buddy.auth.backends.session :refer [session-backend]]
-            [skeleton.handlers.routes :as routes]
-            [skeleton.middleware.datomic :as md]
-            [datomic.api :as d]))
+            [open-source.handlers.routes :as routes]))
 
 (defn log-params
   "Pring every request's params to aid debugging"

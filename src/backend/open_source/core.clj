@@ -1,13 +1,8 @@
-(ns skeleton.core
+(ns open-source.core
   (:gen-class)
   (:require [environ.core               :as env]
-            [datomic.api                :as d]
-            [clojure.java.io            :as io]
-            [com.stuartsierra.component :as component]
             [org.httpkit.server         :as hk]
-            [skeleton.system            :as system]
-            [skeleton.handlers.app      :as app]
-            [skeleton.db.tasks          :as dbt]
+            [open-source.handlers.app   :as app]
             [open-source.db.projects    :as p]))
 
 (defmacro final

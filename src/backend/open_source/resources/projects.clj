@@ -14,16 +14,8 @@
 
 (defn resource-decisions
   [_]
-  {:create {:authorized? true
-            :post! update-project
+  {:create {:post! update-project
             :handle-created list-projects}
 
-   :update {:authorized? true
-            :put! update-project
+   :update {:put! update-project
             :handle-ok list-projects}})
-
-(comment :delete {:delete! (comp c/add-result c/delete)
-                  :delete-enacted? true
-                  :respond-with-entity? true
-                  :handle-ok list-projects})
-
