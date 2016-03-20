@@ -26,6 +26,8 @@ export OPEN_SOURCE_GITHUB_OAUTH_TOKEN=your-oauth-token
 
 [Learn how to create a GitHub oauth token](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).
 
+Then, install [SassC](https://github.com/sass/sassc), a command line
+tool for compiling [Sass](http://sass-lang.com/).
 
 Next, `boot dev` will start the server at
 http://localhost:3000. Boot's super awesome for ClojureScript
