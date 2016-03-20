@@ -8,14 +8,10 @@
   [ctx]
   (db/write-project! (c/projects ctx) (c/params ctx)))
 
-(defn list-projects
-  [ctx]
-  {:data (db/list-projects @(c/projects ctx))})
-
 (defn resource-decisions
   [_]
   {:create {:post! update-project
-            :handle-created list-projects}
+            :handle-created c/list-projects}
 
    :update {:put! update-project
-            :handle-ok list-projects}})
+            :handle-ok c/list-projects}})

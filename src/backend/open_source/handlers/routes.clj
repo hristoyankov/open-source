@@ -12,23 +12,15 @@
                                 :entry [:show :update :delete]}
                                dd/defaults))
 
-(defn html [file]
-  (-> (resp/resource-response file)
-      (resp/content-type "text/html")))
+(def index (-> (resp/resource-response "index.html")
+               (resp/content-type "text/html")))
 
 (defn resource-routes []
   (routes
-   (GET "/" [] (html "index.html"))))
-
-
-(defn resource-routes []
-  (routes
-   (GET "/" [] (html "index.html"))
-   (GET "/manage/projects" [] (html "index.html"))
-   (GET "/manage/projects/new" [] (html "index.html"))
-   (GET "/manage/projects/:id/edit" [] (html "index.html"))
-   
+   (GET "/" [] index)
+   (GET "/manage/*" [] index)
+      
    (resource-route "/init"            init/resource-decisions nil)
    (resource-route "/manage/projects" projects/resource-decisions nil)
    
-   (GET "/*" [] (html "index.html"))))
+   (GET "/*" [] index)))

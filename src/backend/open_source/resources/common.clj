@@ -1,5 +1,6 @@
 (ns open-source.resources.common
   (:require [flyingmachine.webutils.validation :refer [if-valid]]
+            [open-source.db.github :as db]
             [buddy.auth :as buddy]
             [medley.core :as medley]))
 
@@ -35,3 +36,7 @@
 (defn projects
   [ctx]
   (get-in ctx [:request :projects]))
+
+(defn list-projects
+  [ctx]
+  {:data (db/list-projects (projects ctx))})

@@ -8,7 +8,7 @@
             [open-source.handlers.routes :as routes]))
 
 (defn log-params
-  "Pring every request's params to aid debugging"
+  "Print every request's params to aid debugging"
   [f]
   (fn [req]
     (pr (:params req))

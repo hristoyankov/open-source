@@ -63,7 +63,7 @@
 
 (defn list-projects
   [projects]
-  {:projects (->> (vals projects)
+  {:projects (->> (vals @projects)
                   (sort-by (comp str/lower-case str :project/name)))})
 
 ;; update
