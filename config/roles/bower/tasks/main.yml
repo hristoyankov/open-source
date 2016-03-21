@@ -1,0 +1,14 @@
+---
+- name: Install bower components
+  apt: update_cache=yes
+
+# - name: Ensure dependencies are installed
+#   apt: "pkg={{ item }} state=present"
+#   with_items:
+#     - build-essential
+#     - automake
+#     - libtool
+#     - git
+
+- name: Bower install components
+  bower: path=/vagrant/resources/sass
