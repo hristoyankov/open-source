@@ -8,6 +8,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define :app do |app|
     app.vm.box = "ubuntu/trusty64"
     app.vm.hostname = "app"
+    app.vm.network "forwarded_port", guest:3000, host: 3030
+    app.vm.provider "virtualbox" do |v|
+      v.memory = 2048
+      v.cpus = 2
+    end
   end
 
   #config.vm.provision "shell", path: "setup.sh"
