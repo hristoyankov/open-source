@@ -1,7 +1,7 @@
-(ns skeleton.system
+(ns open-source.system
   (:require [com.stuartsierra.component :as component]
             [org.httpkit.server :as hk]
-            [skeleton.handlers.app :as app]
+            [open-source.handlers.app :as app]
             [open-source.db.projects :as p]))
 
 ;; ring app

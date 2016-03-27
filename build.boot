@@ -18,17 +18,12 @@
                  [liberator                           "0.14.0"]
                  [com.flyingmachine/liberator-unbound "0.1.1"]
                  [com.flyingmachine/webutils          "0.1.6"]
-                 [com.flyingmachine/datomic-junk      "0.2.3"]
-                 [com.flyingmachine/vern              "0.1.0-SNAPSHOT"]
                  [http-kit                            "2.1.16"]
-                 [com.datomic/datomic-free            "0.9.5344"]
                  [compojure                           "1.3.4"]
-                 [io.rkn/conformity                   "0.4.0"]
                  [buddy                               "0.9.0"]
                  [io.clojure/liberator-transit        "0.3.0"]
                  [medley                              "0.7.1"]
                  [clj-time                            "0.11.0"]
-                 [clj-aws-s3                          "0.3.10"]
                  [org.imgscalr/imgscalr-lib           "4.2"]
                  [hiccup                              "1.0.5"]
                  [me.raynes/cegdown                   "0.1.1"]
@@ -57,10 +52,8 @@
  '[system.boot                    :as sb]
  '[environ.core                   :as environ]
  '[environ.boot                   :refer [environ]]
- '[datomic.api                    :as d]
  '[mathias.boot-sassc             :refer [sass]]
- '[skeleton.system                :as system]
- '[skeleton.db.tasks              :as dbt])
+ '[open-source.system             :as system])
 
 
 (deftask run []
@@ -100,27 +93,5 @@
         (pom :project 'app :version "0.1.0")
         ;; I've forgotten why I need this voodoo magic
         (uber :exclude (conj pod/standard-jar-exclusions #".*\.html" #"clout/.*" #"license" #"LICENSE"))
-        (aot :namespace '#{skeleton.core})
-        (jar :main 'skeleton.core :file "app.jar")))
-
-;; helper fns for interacting with the database from the REPL
-(defonce conn (atom nil))
-
-(defn db-uri [] (environ.core/env :db-uri))
-(defn connect [] (d/connect (db-uri)))
-
-(defn connect! [] (reset! conn (connect)))
-(defn db [] (d/db @conn))
-(defn recreate-db-repl []
-  (d/delete-database (db-uri))
-  (d/create-database (db-uri))
-  (dbt/conform (connect) "db/schema.edn")
-  (connect!))
-
-;; I use this for initial database creation:
-;; `boot development create-db`
-(deftask create-db
-  []
-  (with-pre-wrap fileset
-    (d/create-database (db-uri))
-    fileset))
+        (aot :namespace '#{open-source.core})
+        (jar :main 'open-source.core :file "app.jar")))

@@ -28,7 +28,7 @@
         [:div.list
          [:div.intro
           [:div.main
-           [:p "Looking to improve your skills and contribute? These projects are active and welcome contributors."]]
+           [:p "Looking to improve your skills and work with real code? These projects are under active development and welcome new contributors."]]
           [:div.secondary
            [:button.submit.target
             {:on-click #(r/nav "/projects/new")}

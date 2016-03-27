@@ -11,16 +11,6 @@
     "Update"
     "Post"))
 
-(defn discard-changes
-  [data source form-path]
-  (let [data @data
-        source @source]
-    (if (and (:db/id data) (not= (dissoc data :listing/unpublished-at :listing/user)
-                                 (dissoc source :listing/unpublished-at :listing/user)))
-      [:div.discard-changes
-       {:on-click #(dispatch [:edit-field (u/flatv :forms form-path :data) source])}
-       "discard changes"])))
-
 (defn form
   [form-path & [source]]
   (let [input             (fh/builder form-path)
@@ -86,7 +76,6 @@
               :tip [:span "What your project does and instructions on how people can get involved."]]]
             [:div.field
              [:input {:type "submit" :value (submit-text data)}]
-             [fh/progress-indicator form]
-             [discard-changes data source form-path]]]]
+             [fh/progress-indicator form]]]]
           [ui/ctg {:transitionName "slide" :class "slide-container"}
            (when show-preview [preview/preview data])]]]))))

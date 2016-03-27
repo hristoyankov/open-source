@@ -3,11 +3,10 @@
             [re-frame.core :refer [dispatch-sync dispatch subscribe]]
             
             [open-source.utils :as u]
-            [open-source.routes]
             [open-source.handlers]
             [open-source.subs]
             [open-source.utils :as u]
-            [open-source.routes :as routes]
+            [open-source.routes]
 
             [open-source.pub.projects.list  :as ppl]
             [open-source.pub.projects.view  :as ppv]
@@ -33,13 +32,13 @@
               [:a {:href "/"} "Open Source Clojure Projects"]]
              [:div.tagline
               [:a {:href "/"} "contribute code, live forever*"]]
-             [:div.caveat "*maybe? hey you won't know until you try"]]])
+             [:div.caveat "*maybe? you won't know until you try"]]])
          [:div.container {:class (if (= l0 :public) "pub" "manage")}
           (when @initialized
             [:div.panel
              (case [l0 l1 l2]                                                 
-               [:public :projects  :list]   [ppl/view]
-               [:public :projects  :view]   [ppv/view]
+               [:public :projects :list]   [ppl/view]
+               [:public :projects :view]   [ppv/view]
                [:public :projects :edit]    [ppe/view]
                [:public :projects :new]     [ppc/view]
                
@@ -47,7 +46,6 @@
 
 (defn -main []
   (dispatch-sync [:initialize])
-  (r/render-component [app] (u/el-by-id "app"))
-  (dispatch [:poll]))
+  (r/render-component [app] (u/el-by-id "app")))
 
 (-main)

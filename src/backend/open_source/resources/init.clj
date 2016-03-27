@@ -5,5 +5,5 @@
 
 (defn resource-decisions
   [opts]
-  {:list {:handle-ok (fn [ctx] {:data (db/list-projects @(c/projects ctx))})}})
+  {:list {:handle-ok c/list-projects}})
 

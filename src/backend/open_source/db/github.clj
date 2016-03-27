@@ -61,12 +61,10 @@
                  current-projects)
          (#(apply dissoc % need-delete)))))
 
-;; TODO parse project body
 (defn list-projects
   [projects]
-  {:projects (->> (vals projects)
+  {:projects (->> (vals @projects)
                   (sort-by (comp str/lower-case str :project/name)))})
-
 
 ;; update
 (def template (sorted-map-by (fn [x y] (< (.indexOf project-keys x) (.indexOf project-keys y)))))
